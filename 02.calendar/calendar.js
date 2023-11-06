@@ -5,8 +5,8 @@ const argv = minimist(process.argv.slice(2));
 const today = DateTime.now();
 
 /*入力の有無によって値を変更*/
-const entered_year = parseInt(argv['-y']) || today.year;
-const entered_month = parseInt(argv['-m']) || today.month;
+const entered_year = parseInt(argv.y) || today.year;
+const entered_month = parseInt(argv.m) || today.month;
 
 /*日付を取得*/
 const dt = DateTime.fromObject({
@@ -17,3 +17,13 @@ const dt = DateTime.fromObject({
 /*calendarを表示*/
 console.log("      %i月%i\n日 月 火 水 木 金 土\n", dt.year, dt.month);
 
+for(let i=1; i <= dt.daysInMonth; i++){
+  const day = dt.set({day: i});
+  let day_string = String(i).padStart(2, ' ');
+  if(day.weekday === 6){
+    day_string += '\n';
+  }else{
+    day_string += ' ';
+  }
+  process.stdout.write(day_string);
+}
