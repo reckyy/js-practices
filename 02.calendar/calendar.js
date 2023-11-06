@@ -16,7 +16,10 @@ const dt = DateTime.fromObject({
 
 /*calendarを表示*/
 console.log("      %i月%i\n日 月 火 水 木 金 土\n", dt.year, dt.month);
-
+const month_beginning_number = dt.startOf('month').weekday;
+if(month_beginning_number !== 7){
+  process.stdout.write('   '.repeat(month_beginning_number));
+}
 for(let i=1; i <= dt.daysInMonth; i++){
   const day = dt.set({day: i});
   let day_string = String(i).padStart(2, ' ');
