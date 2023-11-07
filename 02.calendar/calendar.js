@@ -30,3 +30,4 @@ for(let i=1; i <= dt.daysInMonth; i++){
   }
   process.stdout.write(day_string);
 }
+console.log('');
