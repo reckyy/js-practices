@@ -28,9 +28,9 @@ const insert_value = (table_name) => {
   });
 };
 
-const get_record = () => {
+const get_record = (table_name) => {
   return new Promise((resolve, reject) => {
-   db.get('select * from books where id = ?', 1, (err, row) => {
+   db.get(`select * from ${table_name} where id = ?`, 1, (err, row) => {
       if(err){
         reject(err);
       }else{
@@ -44,7 +44,15 @@ const get_record = () => {
 console.log('エラーなし');
 create_table()
   .then(() => insert_value('books') )
-  .then(() => get_record() )
+  .then(() => get_record('books') )
   .then(() => db.run('drop table books') );
 
 await timers.setTimeout(100);
+
+console.log('エラーあり');
+create_table()
+  .then(() => insert_value('users') )
+  .catch((err) => console.log(err) )
+  .then(() => get_record('users'))
+  .catch((err) => console.log(err) )
+  .then(() => db.run('drop table books') )
