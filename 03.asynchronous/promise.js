@@ -21,7 +21,8 @@ const insert_value = (table_name) => {
       if(err){
         reject(err);
       }else{
-        resolve(this.lastID);
+        console.log(`自動採番ID : ${this.lastID}`)
+        resolve();
 			}
     });
   });
@@ -33,7 +34,8 @@ const get_record = () => {
       if(err){
         reject(err);
       }else{
-        resolve(row);
+        console.log(`id:${row.id} タイトル:${row.title}`); 
+        resolve();
 			}
     });
   });
@@ -41,14 +43,8 @@ const get_record = () => {
 
 console.log('エラーなし');
 create_table()
-  .then(() => { return insert_value('books'); })
-  .then((lastID) => {
-    console.log(`自動採番ID : ${lastID}`)
-		return get_record();
-	})
-  .then((row) => { 
-    console.log(`id:${row.id} タイトル:${row.title}`); 
-    db.run('drop table books');
-  });
+  .then(() => insert_value('books') )
+  .then(() => get_record() )
+  .then(() => db.run('drop table books') );
 
 await timers.setTimeout(100);
