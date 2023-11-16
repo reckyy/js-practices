@@ -29,9 +29,9 @@ const insert_value = (table_name) => {
   });
 }
 
-const get_record = () => {
+const get_record = (table_name) => {
   return new Promise((resolve, reject) => {
-   db.get('select * from books where id = ?', 1, (err, row) => {
+   db.get(`select * from ${table_name} where id = ?`, 1, (err, row) => {
       if(err){
         reject(err);
       }else{
@@ -46,9 +46,27 @@ console.log('エラーなし');
   await create_table();
   const lastID = await insert_value('books');
   console.log(`自動採番ID : ${lastID}`);
-  const row = await get_record();
+  const row = await get_record('books');
   console.log(`id:${row.id} タイトル:${row.title}`); 
   db.run('drop table books');
 })();
 
 await timers.setTimeout(100);
+
+console.log('エラーあり');
+(async () => {
+  await create_table();
+  try {
+    const lastID = await insert_value('users');
+    console.log(`自動採番ID : ${lastID}`);
+  } catch(e) {
+      console.error(e)
+  }
+  try{
+    const row = await get_record('users');
+    console.log(`id:${row.id} タイトル:${row.title}`); 
+  } catch(e) {
+    console.error(e)
+  }
+  db.run('drop table books');
+})();
