@@ -13,7 +13,8 @@ const datetime = DateTime.fromObject({
 });
 
 /*calendarを表示*/
-console.log("      %i月 %i\n日 月 火 水 木 金 土", datetime.month, datetime.year);
+console.log("      %i月 %i", datetime.month, datetime.year);
+console.log("日 月 火 水 木 金 土");
 const month_beginning_number = datetime.startOf("month").weekday;
 if (month_beginning_number !== 7) {
   process.stdout.write("   ".repeat(month_beginning_number));
