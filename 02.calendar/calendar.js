@@ -5,13 +5,13 @@ const argv = minimist(process.argv.slice(2));
 const today = DateTime.now();
 
 /*入力の有無によって値を変更*/
-const entered_year = parseInt(argv.y) || today.year;
-const entered_month = parseInt(argv.m) || today.month;
+const year = parseInt(argv.y) || today.year;
+const month = parseInt(argv.m) || today.month;
 
 /*日付を取得*/
 const dt = DateTime.fromObject({
-  year: entered_year,
-  month: entered_month,
+  year: year,
+  month: month,
 });
 
 /*calendarを表示*/
