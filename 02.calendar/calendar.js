@@ -4,11 +4,9 @@ import minimist from "minimist";
 const argv = minimist(process.argv.slice(2));
 const today = DateTime.now();
 
-/*入力の有無によって値を変更*/
 const year = parseInt(argv.y) || today.year;
 const month = parseInt(argv.m) || today.month;
 
-/*日付を取得*/
 const dt = DateTime.fromObject({
   year: year,
   month: month,
