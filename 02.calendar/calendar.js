@@ -7,19 +7,19 @@ const today = DateTime.now();
 const year = parseInt(argv.y) || today.year;
 const month = parseInt(argv.m) || today.month;
 
-const dt = DateTime.fromObject({
+const datetime = DateTime.fromObject({
   year: year,
   month: month,
 });
 
 /*calendarを表示*/
-console.log("      %i月 %i\n日 月 火 水 木 金 土", dt.month, dt.year);
-const month_beginning_number = dt.startOf("month").weekday;
+console.log("      %i月 %i\n日 月 火 水 木 金 土", datetime.month, datetime.year);
+const month_beginning_number = datetime.startOf("month").weekday;
 if (month_beginning_number !== 7) {
   process.stdout.write("   ".repeat(month_beginning_number));
 }
-for (let i = 1; i <= dt.daysInMonth; i++) {
-  const day = dt.set({ day: i });
+for (let i = 1; i <= datetime.daysInMonth; i++) {
+  const day = datetime.set({ day: i });
   let day_string = String(i).padStart(2, " ");
   if (day.weekday === 6) {
     day_string += "\n";
