@@ -56,3 +56,5 @@ create_table()
   .then(() => get_record('users'))
   .catch((err) => console.log(err) )
   .then(() => db.run('drop table books') )
+
+db.close;

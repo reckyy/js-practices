@@ -69,3 +69,5 @@ console.log('エラーあり');
   }
   db.run('drop table books');
 })();
+
+db.close;
