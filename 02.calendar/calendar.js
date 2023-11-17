@@ -11,10 +11,14 @@ const first_date_of_the_month = DateTime.fromObject({
   year: year,
   month: month,
 });
-const first_day_of_the_month = first_date_of_the_month.weekday
+const first_day_of_the_month = first_date_of_the_month.weekday;
 
 /*calendarを表示*/
-console.log("      %i月 %i", first_date_of_the_month.month, first_date_of_the_month.year);
+console.log(
+  "      %i月 %i",
+  first_date_of_the_month.month,
+  first_date_of_the_month.year,
+);
 console.log("日 月 火 水 木 金 土");
 if (first_date_of_the_month.weekday !== 7) {
   process.stdout.write("   ".repeat(first_day_of_the_month));
