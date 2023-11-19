@@ -18,9 +18,9 @@ console.log("日 月 火 水 木 金 土");
 if (firstDate.weekday !== 7) {
   process.stdout.write("   ".repeat(firstDay));
 }
-for (let i = 1; i <= firstDate.daysInMonth; i++) {
-  const datetime = firstDate.set({ day: i });
-  let day_string = String(i).padStart(2, " ");
+for (let day = 1; day <= firstDate.daysInMonth; day++) {
+  const datetime = firstDate.set({ day });
+  let day_string = String(day).padStart(2, " ");
   if (datetime.weekday === 6) {
     day_string += "\n";
   } else {
