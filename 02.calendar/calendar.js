@@ -13,11 +13,7 @@ const firstDate = DateTime.fromObject({
 });
 const firstDay= firstDate.weekday;
 
-console.log(
-  "      %i月 %i",
-  firstDate.month,
-  firstDate.year,
-);
+console.log(`      ${firstDate.month}月 ${firstDate.year}`);
 console.log("日 月 火 水 木 金 土");
 if (firstDate.weekday !== 7) {
   process.stdout.write("   ".repeat(firstDay));
