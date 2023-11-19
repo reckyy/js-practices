@@ -11,7 +11,7 @@ const firstDate = DateTime.fromObject({
   year: year,
   month: month,
 });
-const firstDay= firstDate.weekday;
+const firstDay = firstDate.weekday;
 
 console.log(`      ${firstDate.month}月 ${firstDate.year}`);
 console.log("日 月 火 水 木 金 土");
