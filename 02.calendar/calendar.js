@@ -13,7 +13,6 @@ const firstDate = DateTime.fromObject({
 });
 const firstDay= firstDate.weekday;
 
-/*calendarを表示*/
 console.log(
   "      %i月 %i",
   firstDate.month,
