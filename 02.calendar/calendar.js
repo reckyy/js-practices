@@ -7,24 +7,24 @@ const today = DateTime.now();
 const year = parseInt(argv.y) || today.year;
 const month = parseInt(argv.m) || today.month;
 
-const first_date_of_the_month = DateTime.fromObject({
+const firstDate = DateTime.fromObject({
   year: year,
   month: month,
 });
-const first_day_of_the_month = first_date_of_the_month.weekday;
+const firstDay= firstDate.weekday;
 
 /*calendarを表示*/
 console.log(
   "      %i月 %i",
-  first_date_of_the_month.month,
-  first_date_of_the_month.year,
+  firstDate.month,
+  firstDate.year,
 );
 console.log("日 月 火 水 木 金 土");
-if (first_date_of_the_month.weekday !== 7) {
-  process.stdout.write("   ".repeat(first_day_of_the_month));
+if (firstDate.weekday !== 7) {
+  process.stdout.write("   ".repeat(firstDay));
 }
-for (let i = 1; i <= first_date_of_the_month.daysInMonth; i++) {
-  const datetime = first_date_of_the_month.set({ day: i });
+for (let i = 1; i <= firstDate.daysInMonth; i++) {
+  const datetime = firstDate.set({ day: i });
   let day_string = String(i).padStart(2, " ");
   if (datetime.weekday === 6) {
     day_string += "\n";
