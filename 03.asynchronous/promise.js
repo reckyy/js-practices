@@ -3,7 +3,7 @@ import sqlite3 from "sqlite3";
 const db = new sqlite3.Database(":memory:");
 
 //Promise用のメソッド作成
-const create_table = () => {
+const createTable = () => {
   return new Promise((resolve, reject) => {
     db.run(
       "create table books(id integer primary key autoincrement, title text unique)",
@@ -18,7 +18,7 @@ const create_table = () => {
   });
 };
 
-const insert_value = (table_name) => {
+const insertValue = (table_name) => {
   return new Promise((resolve, reject) => {
     db.run(
       `insert into ${table_name}(title) values(?)`,
@@ -35,7 +35,7 @@ const insert_value = (table_name) => {
   });
 };
 
-const get_record = (table_name) => {
+const getRecord = (table_name) => {
   return new Promise((resolve, reject) => {
     db.get(`select * from ${table_name} where id = ?`, 1, (err, row) => {
       if (err) {
@@ -49,18 +49,18 @@ const get_record = (table_name) => {
 };
 
 console.log("エラーなし");
-create_table()
-  .then(() => insert_value("books"))
-  .then(() => get_record("books"))
+createTable()
+  .then(() => insertValue("books"))
+  .then(() => getRecord("books"))
   .then(() => db.run("drop table books"));
 
 await timers.setTimeout(100);
 
 console.log("エラーあり");
-create_table()
-  .then(() => insert_value("users"))
+createTable()
+  .then(() => insertValue("users"))
   .catch((err) => console.log(err))
-  .then(() => get_record("users"))
+  .then(() => getRecord("users"))
   .catch((err) => console.log(err))
   .then(() => db.run("drop table books"));
 
