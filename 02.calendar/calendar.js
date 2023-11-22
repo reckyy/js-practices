@@ -7,10 +7,7 @@ const today = DateTime.now();
 const year = parseInt(argv.y) || today.year;
 const month = parseInt(argv.m) || today.month;
 
-const firstDate = DateTime.fromObject({
-  year: year,
-  month: month,
-});
+const firstDate = DateTime.fromObject({ year, month });
 const firstDay = firstDate.weekday;
 
 console.log(`      ${firstDate.month}月 ${firstDate.year}`);
