@@ -17,12 +17,12 @@ if (firstDate.weekday !== 7) {
 }
 for (let day = 1; day <= firstDate.daysInMonth; day++) {
   const datetime = firstDate.set({ day });
-  let dayString = String(day).padStart(2, " ");
+  let dateString = String(day).padStart(2, " ");
   if (datetime.weekday === 6) {
-    dayString += "\n";
+    dateString += "\n";
   } else {
-    dayString += " ";
+    dateString += " ";
   }
-  process.stdout.write(dayString);
+  process.stdout.write(dateString);
 }
 console.log("");
