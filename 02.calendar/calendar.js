@@ -16,9 +16,9 @@ if (firstDate.weekday !== 7) {
   process.stdout.write("   ".repeat(firstDay));
 }
 for (let day = 1; day <= firstDate.daysInMonth; day++) {
-  const datetime = firstDate.set({ day });
+  const currentDate = firstDate.set({ day });
   const dateString = String(day).padStart(2, " ");
-  const separator = datetime.weekday === 6 ? "\n" : " ";
+  const separator = currentDate.weekday === 6 ? "\n" : " ";
   process.stdout.write(dateString + separator);
 }
 console.log("");
