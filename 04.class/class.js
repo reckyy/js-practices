@@ -1,18 +1,49 @@
-import readline from 'readline';
-import fs from 'node:fs';
+import sqlite3 from "sqlite3";
+import readline from "readline";
 
+const dbPath = "memo.db";
+
+const db = new sqlite3.Database(dbPath);
 const rl = readline.createInterface({
   input: process.stdin,
-  output: process.stdout
+  output: process.stdout,
 });
 
-rl.on('line', (input) => {
-  fs.appendFile('memo.txt', input + '\n', (err) => {
-    if (err) {
-      console.error('エラーが発生しました:', err);
-    } else {
-      console.log('データがファイルに追加されました！');
-    }
-    rl.close();
+const createTable = () => {
+  return new Promise((resolve, reject) => {
+    db.run(
+      "create table if not exists memos (id integer primary key autoincrement, content text)",
+      (err) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve();
+        }
+      },
+    );
   });
+};
+
+const addMemo = (data) => {
+  return new Promise((resolve, reject) => {
+    db.run("insert into memos(content) values(?)", data, function (err) {
+      if (err) {
+        reject(err);
+      } else {
+        resolve();  
+      }
+    });
+  });
+};
+
+rl.on("line", async (input) => {
+  await createTable();
+  try {
+    await addMemo(input);
+  } catch (e) {
+    console.error(e);
+  } finally {
+    rl.close();
+    db.close();
+  }
 });
