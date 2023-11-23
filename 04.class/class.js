@@ -36,14 +36,19 @@ const addMemo = (data) => {
   });
 };
 
-rl.on("line", async (input) => {
+const lines = [];
+rl.on("line", (line) => {
+  lines.push(line);
+});
+
+rl.on("close", async () => {
+  const input = lines.join('\n');
   await createTable();
   try {
     await addMemo(input);
   } catch (e) {
     console.error(e);
   } finally {
-    rl.close();
     db.close();
   }
 });
