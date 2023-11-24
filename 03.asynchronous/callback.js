@@ -23,13 +23,13 @@ console.log("エラーあり");
 db.run(
   "CREATE TABLE books(id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT UNIQUE)",
   () => {
-    db.run("INSERT INTO books(title) VALUES(?)", "テスト", function (err) {
+    db.run("INSERT INTO users(title) VALUES(?)", "テスト", function (err) {
       if (err) {
         console.error(err);
       } else {
         console.log(`自動採番ID :${this.lastID}`);
       }
-      db.get("SELECT * FROM books WHERE id = ?", 1, (err, row) => {
+      db.get("SELECT * FROM users WHERE id = ?", 1, (err, row) => {
         if (err) {
           console.error(err);
         } else {
