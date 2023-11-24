@@ -60,9 +60,9 @@ await timers.setTimeout(100);
 console.log("エラーあり");
 createTable()
   .then(() => insertValue("users"))
-  .catch((err) => console.log(err))
+  .catch((err) => console.error(err))
   .then(() => getRecord("users"))
-  .catch((err) => console.log(err))
+  .catch((err) => console.error(err))
   .then(() => db.run("DROP TABLE books"));
 
 db.close;

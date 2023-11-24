@@ -24,13 +24,13 @@ db.run(
   () => {
     db.run("INSERT INTO books(title) VALUES(?)", "テスト", function (err) {
       if (err) {
-        console.log(err);
+        console.error(err);
       } else {
         console.log(`自動採番ID :${this.lastID}`);
       }
       db.get("SELECT * FROM books WHERE id = ?", 1, (err, row) => {
         if (err) {
-          console.log(err);
+          console.error(err);
         } else {
           console.log(`id:${row.id} タイトル:${row.title}`);
         }
