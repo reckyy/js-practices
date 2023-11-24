@@ -5,11 +5,11 @@ const db = new sqlite3.Database(":memory:");
 
 console.log("エラーなし");
 db.run(
-  "create table books(id integer primary key autoincrement, title text unique)",
+  "CREATE TABLE books(id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT UNIQUE)",
   () => {
-    db.run("insert into books(title) values(?)", "テスト", function () {
+    db.run("INSERT INTO books(title) VALUES(?)", "テスト", function () {
       console.log(this);
-      db.get("select * from books where id = ?", 1, (_, row) => {
+      db.get("SELECT * FROM books WHERE id = ?", 1, (_, row) => {
         console.log(`id:${row.id} タイトル:${row.title}`);
       });
     });
@@ -20,21 +20,21 @@ await timers.setTimeout(100);
 
 console.log("エラーあり");
 db.run(
-  "create table books(id integer primary key autoincrement, title text unique)",
+  "CREATE TABLE books(id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT UNIQUE)",
   () => {
-    db.run("insert into users(title) values(?)", "テスト", function (err) {
+    db.run("INSERT INTO books(title) VALUES(?)", "テスト", function (err) {
       if (err) {
         console.log(err);
       } else {
         console.log(`自動採番ID :${this.lastID}`);
       }
-      db.get("select * from users where id = ?", 1, (err, row) => {
+      db.get("SELECT * FROM books WHERE id = ?", 1, (err, row) => {
         if (err) {
           console.log(err);
         } else {
           console.log(`id:${row.id} タイトル:${row.title}`);
         }
-        db.run("drop table books");
+        db.run("DROP TABLE books");
       });
     });
   },

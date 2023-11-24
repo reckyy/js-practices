@@ -7,7 +7,7 @@ const db = new sqlite3.Database(":memory:");
 const createTable = () => {
   return new Promise((resolve, reject) => {
     db.run(
-      "create table books(id integer primary key autoincrement, title text unique)",
+      "CREATE TABLE books(id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT UNIQUE)",
       (err) => {
         if (err) {
           reject(err);
@@ -22,7 +22,7 @@ const createTable = () => {
 const insertValue = (table_name) => {
   return new Promise((resolve, reject) => {
     db.run(
-      `insert into ${table_name}(title) values(?)`,
+      `INSERT INTO ${table_name}(title) VALUES(?)`,
       "テスト",
       function (err) {
         if (err) {
@@ -37,7 +37,7 @@ const insertValue = (table_name) => {
 
 const getRecord = (table_name) => {
   return new Promise((resolve, reject) => {
-    db.get(`select * from ${table_name} where id = ?`, 1, (err, row) => {
+    db.get(`SELECT * FROM ${table_name} WHERE id = ?`, 1, (err, row) => {
       if (err) {
         reject(err);
       } else {
@@ -54,7 +54,7 @@ console.log("エラーなし");
   console.log(`自動採番ID : ${lastID}`);
   const row = await getRecord("books");
   console.log(`id:${row.id} タイトル:${row.title}`);
-  db.run("drop table books");
+  db.run("DROP TABLE books");
 })();
 
 await timers.setTimeout(100);
@@ -74,7 +74,7 @@ console.log("エラーあり");
   } catch (e) {
     console.error(e);
   }
-  db.run("drop table books");
+  db.run("DROP TABLE books");
 })();
 
 db.close;
