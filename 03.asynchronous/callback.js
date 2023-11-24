@@ -11,6 +11,7 @@ db.run(
       console.log(this);
       db.get("SELECT * FROM books WHERE id = ?", 1, (_, row) => {
         console.log(`id:${row.id} タイトル:${row.title}`);
+        db.run("DROP TABLE books");
       });
     });
   },
