@@ -35,10 +35,10 @@ db.run(
         } else {
           console.log(`id:${row.id} タイトル:${row.title}`);
         }
-        db.run("DROP TABLE books");
+        db.run("DROP TABLE books", () => {
+          db.close();
+        });
       });
     });
   },
 );
-
-db.close;

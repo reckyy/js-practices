@@ -47,6 +47,18 @@ const getRecord = (table_name) => {
   });
 };
 
+const dropTable = () => {
+  return new Promise((resolve, reject) => {
+    db.run("DROP TABLE books", (err) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve();
+      }
+    });
+  });
+};
+
 console.log("エラーなし");
 (async () => {
   await createTable();
@@ -74,7 +86,8 @@ console.log("エラーあり");
   } catch (e) {
     console.error(e);
   }
-  db.run("DROP TABLE books");
+  finally {
+    await dropTable();
+    db.close();
+  }
 })();
-
-db.close;

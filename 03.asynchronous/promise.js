@@ -49,6 +49,18 @@ const getRecord = (table_name) => {
   });
 };
 
+const dropTable = () => {
+  return new Promise((resolve, reject) => {
+    db.run("DROP TABLE books", (err) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve();
+      }
+    });
+  });
+};
+
 console.log("エラーなし");
 createTable()
   .then(() => insertValue("books"))
@@ -63,6 +75,5 @@ createTable()
   .catch((err) => console.error(err))
   .then(() => getRecord("users"))
   .catch((err) => console.error(err))
-  .then(() => db.run("DROP TABLE books"));
-
-db.close;
+  .then(() => dropTable())
+  .then(() => db.close());
