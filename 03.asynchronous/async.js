@@ -3,7 +3,6 @@ import sqlite3 from "sqlite3";
 
 const db = new sqlite3.Database(":memory:");
 
-//Promise用のメソッド作成
 const createTable = () => {
   return new Promise((resolve, reject) => {
     db.run(
