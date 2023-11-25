@@ -9,7 +9,7 @@ console.log("エラーなし");
   await createTable(db);
   await insertValue("books", db);
   await getRecord("books", db);
-  dropTable(db);
+  await dropTable(db);
 })();
 
 await timers.setTimeout(100);
