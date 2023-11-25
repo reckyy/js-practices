@@ -76,14 +76,14 @@ console.log("エラーあり");
   try {
     const lastID = await insertValue("users");
     console.log(`自動採番ID : ${lastID}`);
-  } catch (e) {
-    console.error(e);
+  } catch (err) {
+    console.error(err);
   }
   try {
     const row = await getRecord("users");
     console.log(`id:${row.id} タイトル:${row.title}`);
-  } catch (e) {
-    console.error(e);
+  } catch (err) {
+    console.error(err);
   }
   finally {
     await dropTable();
