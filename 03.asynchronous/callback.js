@@ -8,7 +8,7 @@ db.run(
   "CREATE TABLE books(id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT UNIQUE)",
   () => {
     db.run("INSERT INTO books(title) VALUES(?)", "テスト", function () {
-      console.log(this);
+      console.log(`自動採番ID : ${this.lastID}`);
       db.get("SELECT * FROM books WHERE id = ?", 1, (_, row) => {
         console.log(`id:${row.id} タイトル:${row.title}`);
         db.run("DROP TABLE books");
