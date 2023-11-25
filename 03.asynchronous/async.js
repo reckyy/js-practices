@@ -1,92 +1,34 @@
 import timers from "timers/promises";
 import sqlite3 from "sqlite3";
+import {createTable, insertValue, getRecord, dropTable} from "./handle_db.js";
 
 const db = new sqlite3.Database(":memory:");
 
-const createTable = () => {
-  return new Promise((resolve, reject) => {
-    db.run(
-      "CREATE TABLE books(id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT UNIQUE)",
-      (err) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve();
-        }
-      },
-    );
-  });
-};
-
-const insertValue = (table_name) => {
-  return new Promise((resolve, reject) => {
-    db.run(
-      `INSERT INTO ${table_name}(title) VALUES(?)`,
-      "テスト",
-      function (err) {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(this.lastID);
-        }
-      },
-    );
-  });
-};
-
-const getRecord = (table_name) => {
-  return new Promise((resolve, reject) => {
-    db.get(`SELECT * FROM ${table_name} WHERE id = ?`, 1, (err, row) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(row);
-      }
-    });
-  });
-};
-
-const dropTable = () => {
-  return new Promise((resolve, reject) => {
-    db.run("DROP TABLE books", (err) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve();
-      }
-    });
-  });
-};
-
 console.log("エラーなし");
 (async () => {
-  await createTable();
-  const lastID = await insertValue("books");
-  console.log(`自動採番ID : ${lastID}`);
-  const row = await getRecord("books");
-  console.log(`id:${row.id} タイトル:${row.title}`);
-  db.run("DROP TABLE books");
+  await createTable(db);
+  await insertValue("books", db);
+  await getRecord("books", db);
+  dropTable(db);
 })();
 
 await timers.setTimeout(100);
 
 console.log("エラーあり");
 (async () => {
-  await createTable();
+  await createTable(db);
   try {
-    const lastID = await insertValue("users");
-    console.log(`自動採番ID : ${lastID}`);
+    await insertValue("users", db);
   } catch (err) {
     console.error(err);
   }
   try {
-    const row = await getRecord("users");
-    console.log(`id:${row.id} タイトル:${row.title}`);
+    await getRecord("users", db);
   } catch (err) {
     console.error(err);
   }
   finally {
-    await dropTable();
+    await dropTable(db);
     db.close();
   }
 })();
