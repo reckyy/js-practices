@@ -14,7 +14,7 @@ db.run(
         db.run("DROP TABLE books");
       });
     });
-  },
+  }
 );
 
 await timers.setTimeout(100);
@@ -40,5 +40,5 @@ db.run(
         });
       });
     });
-  },
+  }
 );

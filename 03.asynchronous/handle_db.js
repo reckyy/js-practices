@@ -8,7 +8,7 @@ const createTable = (db) => {
         } else {
           resolve();
         }
-      },
+      }
     );
   });
 };
@@ -25,7 +25,7 @@ const insertValue = (table_name, db) => {
           console.log(`自動採番ID : ${this.lastID}`);
           resolve();
         }
-      },
+      }
     );
   });
 };
@@ -55,4 +55,4 @@ const dropTable = (db) => {
   });
 };
 
-export{ createTable, insertValue, getRecord, dropTable }
+export { createTable, insertValue, getRecord, dropTable };

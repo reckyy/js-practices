@@ -1,6 +1,6 @@
 import timers from "timers/promises";
 import sqlite3 from "sqlite3";
-import {createTable, insertValue, getRecord, dropTable} from "./handle_db.js";
+import { createTable, insertValue, getRecord, dropTable } from "./handle_db.js";
 
 const db = new sqlite3.Database(":memory:");
 
