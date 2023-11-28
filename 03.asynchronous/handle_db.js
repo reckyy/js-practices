@@ -1,58 +1,28 @@
-const createTable = (db) => {
+const run = (db, sql) => {
   return new Promise((resolve, reject) => {
     db.run(
-      "CREATE TABLE books(id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT UNIQUE)",
-      (err) => {
+      sql,
+      function(err) {
         if (err) {
           reject(err);
         } else {
-          resolve();
+          resolve(this.lastID);
         }
       }
     );
   });
 };
 
-const insertValue = (table_name, db) => {
+const get = (db, sql) => {
   return new Promise((resolve, reject) => {
-    db.run(
-      `INSERT INTO ${table_name}(title) VALUES(?)`,
-      "テスト",
-      function (err) {
-        if (err) {
-          reject(err);
-        } else {
-          console.log(`自動採番ID : ${this.lastID}`);
-          resolve();
-        }
-      }
-    );
-  });
-};
-
-const getRecord = (table_name, db) => {
-  return new Promise((resolve, reject) => {
-    db.get(`SELECT * FROM ${table_name} WHERE id = ?`, 1, (err, row) => {
+    db.get(sql, (err, row) => {
       if (err) {
         reject(err);
       } else {
-        console.log(`id:${row.id} タイトル:${row.title}`);
-        resolve();
+        resolve(row);
       }
     });
   });
 };
 
-const dropTable = (db) => {
-  return new Promise((resolve, reject) => {
-    db.run("DROP TABLE books", (err) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve();
-      }
-    });
-  });
-};
-
-export { createTable, insertValue, getRecord, dropTable };
+export { run, get };
