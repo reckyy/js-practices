@@ -12,7 +12,7 @@ run(
   .then(() => run(db, "INSERT INTO books(title) VALUES('テスト')"))
   .then((id) => {
     console.log(`自動採番ID : ${id}`);
-    return get(db, "SELECT * FROM books");
+    return get(db, "SELECT * FROM books WHERE id = ?", id);
   })
   .then((row) => {
     console.log(`id:${row.id} タイトル:${row.title}`);
@@ -29,7 +29,7 @@ run(
   .then(() => run(db, "INSERT INTO users(title) VALUES('テスト')"))
   .catch((err) => {
     console.error(err);
-    return get(db, "SELECT * FROM users");
+    return get(db, "SELECT * FROM users WHERE id = ?", 1);
   })
   .catch((err) => {
     console.error(err);

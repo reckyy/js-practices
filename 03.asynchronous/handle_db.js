@@ -10,9 +10,9 @@ const run = (db, sql) => {
   });
 };
 
-const get = (db, sql) => {
+const get = (db, sql, id) => {
   return new Promise((resolve, reject) => {
-    db.get(sql, (err, row) => {
+    db.get(sql, id, (err, row,) => {
       if (err) {
         reject(err);
       } else {

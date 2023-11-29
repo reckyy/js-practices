@@ -12,7 +12,7 @@ console.log("エラーなし");
   );
   const id = await run(db, "INSERT INTO books(title) VALUES('テスト')");
   console.log(`自動採番ID :${id}`);
-  const row = await get(db, "SELECT * FROM books");
+  const row = await get(db, "SELECT * FROM books WHERE id = ?", id);
   console.log(`id:${row.id} タイトル:${row.title}`);
   await run(db, "DROP TABLE books");
 })();
@@ -31,7 +31,7 @@ console.log("エラーあり");
     console.error(err);
   }
   try {
-    await get(db, "SELECT * FROM users");
+    await get(db, "SELECT * FROM users WHERE id = ?", 1);
   } catch (err) {
     console.error(err);
   } finally {
