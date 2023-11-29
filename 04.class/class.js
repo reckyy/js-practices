@@ -8,24 +8,9 @@ const rl = readline.createInterface({
   output: process.stdout,
 });
 
-const createTable = () => {
+const run = (sql) => {
   return new Promise((resolve, reject) => {
-    db.run(
-      "create table if not exists memos (id integer primary key autoincrement, content text)",
-      (err) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve();
-        }
-      }
-    );
-  });
-};
-
-const addMemo = (data) => {
-  return new Promise((resolve, reject) => {
-    db.run("insert into memos(content) values(?)", data, function (err) {
+    db.run(sql, function (err) {
       if (err) {
         reject(err);
       } else {
@@ -35,13 +20,13 @@ const addMemo = (data) => {
   });
 };
 
-const getAllMemo = () => {
+const all = (sql) => {
   return new Promise((resolve, reject) => {
-    db.all("select * from memos", function (err, rows) {
+    db.all(sql, (err, row) => {
       if (err) {
         reject(err);
       } else {
-        resolve(rows);
+        resolve(row);
       }
     });
   });
@@ -52,7 +37,7 @@ const option = process.argv[2];
 
 if (option) {
   (async () => {
-    const memos = await getAllMemo();
+    const memos = await all("select * from memos");
 		const firstRowsOfMemos = memos.map(({id, content}) => ({
             id: id,
             value: content.split('\n')[0],
@@ -95,9 +80,9 @@ if (option) {
 
   rl.on("close", async () => {
     const input = lines.join("\n");
-    await createTable();
+    await run("create table if not exists memos (id integer primary key autoincrement, content text)");
     try {
-      await addMemo(input);
+      await run(`insert into memos(content) values('${input}')`);
     } catch (e) {
       console.error(e);
     } finally {
