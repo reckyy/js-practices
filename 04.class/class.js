@@ -60,17 +60,17 @@ if (option) {
     try {
       switch (option) {
         case '-r': {
-					const questions = [
-					  {
-					    type: "select",
-					    name: "chosenMemoId",
-					    message: "Choose a note you want to see:",
-					    choices: firstRowsOfMemos,
-					    result() {
-					      return this.focused.id;
-					    },
-					  },
-					];
+          const questions = [
+            {
+              type: "select",
+              name: "chosenMemoId",
+              message: "Choose a note you want to see:",
+              choices: firstRowsOfMemos,
+              result() {
+                return this.focused.id;
+              },
+            },
+          ];
           const answer = await enquirer.prompt(questions);
           console.log(memos[answer.chosenMemoId - 1].content);
           break;
