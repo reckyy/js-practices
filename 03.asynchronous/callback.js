@@ -9,7 +9,7 @@ db.run(
   () => {
     db.run("INSERT INTO books(title) VALUES(?)", "テスト", function () {
       console.log(`自動採番ID : ${this.lastID}`);
-      db.get("SELECT * FROM books WHERE id = ?", 1, (_, row) => {
+      db.get("SELECT * FROM books WHERE id = ?", this.lastID, (_, row) => {
         console.log(`id:${row.id} タイトル:${row.title}`);
         db.run("DROP TABLE books");
       });
@@ -29,7 +29,7 @@ db.run(
       } else {
         console.log(`自動採番ID :${this.lastID}`);
       }
-      db.get("SELECT * FROM users WHERE id = ?", 1, (err, row) => {
+      db.get("SELECT * FROM users WHERE id = ?", this ? this.lastID : 1 , (err, row) => {
         if (err) {
           console.error(err);
         } else {
