@@ -17,6 +17,19 @@ export class Sqlite{
     });
   };
 
+
+  all(){
+    return new Promise((resolve, reject) => {
+      this.db.all("select * from memos", (err, rows) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(rows);
+        }
+      });
+    });
+  };
+
   close(){
     this.db.close();
   };
