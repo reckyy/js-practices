@@ -31,7 +31,7 @@ db.run(
       }
       db.get(
         "SELECT * FROM users WHERE id = ?",
-        this ? this.lastID : 1,
+        this?.lastID,
         (err, row) => {
           if (err) {
             console.error(err.message);
