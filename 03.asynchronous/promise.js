@@ -10,9 +10,9 @@ run(
   "CREATE TABLE books(id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT UNIQUE)"
 )
   .then(() => run(db, "INSERT INTO books(title) VALUES('テスト')"))
-  .then((id) => {
-    console.log(`自動採番ID : ${id}`);
-    return get(db, "SELECT * FROM books WHERE id = ?", id);
+  .then((result) => {
+    console.log(`自動採番ID : ${result.lastID}`);
+    return get(db, "SELECT * FROM books WHERE id = ?", result.lastID);
   })
   .then((row) => {
     console.log(`id:${row.id} タイトル:${row.title}`);

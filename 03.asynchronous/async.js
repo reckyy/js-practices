@@ -10,9 +10,9 @@ console.log("エラーなし");
     db,
     "CREATE TABLE books(id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT UNIQUE)"
   );
-  const id = await run(db, "INSERT INTO books(title) VALUES('テスト')");
-  console.log(`自動採番ID :${id}`);
-  const row = await get(db, "SELECT * FROM books WHERE id = ?", id);
+  const result = await run(db, "INSERT INTO books(title) VALUES('テスト')");
+  console.log(`自動採番ID :${result.lastID}`);
+  const row = await get(db, "SELECT * FROM books WHERE id = ?", result.lastID);
   console.log(`id:${row.id} タイトル:${row.title}`);
   await run(db, "DROP TABLE books");
 })();
