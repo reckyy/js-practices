@@ -1,19 +1,17 @@
 import readline from "readline";
 
 export class ReceiveEntry{
-  constructor(){
-    this.rl = readline.createInterface({
+
+  static saveInput(sql){
+    const rl = readline.createInterface({
       input: process.stdin,
     });
-  }
-
-  saveInput(sql){
     const lines = [];
-    this.rl.on("line", (line) => {
+    rl.on("line", (line) => {
       lines.push(line);
     })
     
-    this.rl.on("close", async() => {
+    rl.on("close", async() => {
       const input = lines.join('\n');
       await sql.run("create table if not exists memos (id integer primary key autoincrement, content text)");
       try {
