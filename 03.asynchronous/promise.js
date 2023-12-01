@@ -16,7 +16,7 @@ run(
   })
   .then((row) => {
     console.log(`id:${row.id} タイトル:${row.title}`);
-    run(db, "DROP TABLE books");
+    return run(db, "DROP TABLE books");
   });
 
 await timers.setTimeout(100);
@@ -33,6 +33,6 @@ run(
   })
   .catch((err) => {
     console.error(err.message);
-    run(db, "DROP TABLE books");
+    return run(db, "DROP TABLE books");
   })
   .then(() => db.close());
