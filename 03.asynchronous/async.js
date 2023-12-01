@@ -10,7 +10,7 @@ console.log("エラーなし");
     db,
     "CREATE TABLE books(id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT UNIQUE)"
   );
-  const result = await run(db, "INSERT INTO books(title) VALUES('テスト')");
+  const result = await run(db, "INSERT INTO books(title) VALUES(?)", "テスト");
   console.log(`自動採番ID :${result.lastID}`);
   const row = await get(db, "SELECT * FROM books WHERE id = ?", result.lastID);
   console.log(`id:${row.id} タイトル:${row.title}`);
@@ -26,7 +26,7 @@ console.log("エラーあり");
     "CREATE TABLE books(id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT UNIQUE)"
   );
   try {
-    await run(db, "INSERT INTO users(title) VALUES('テスト')");
+    await run(db, "INSERT INTO users(title) VALUES(?)", "テスト");
   } catch (err) {
     console.error(err.message);
   }

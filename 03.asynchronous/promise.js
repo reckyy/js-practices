@@ -9,7 +9,7 @@ run(
   db,
   "CREATE TABLE books(id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT UNIQUE)"
 )
-  .then(() => run(db, "INSERT INTO books(title) VALUES('テスト')"))
+  .then(() => run(db, "INSERT INTO books(title) VALUES(?)", "テスト"))
   .then((result) => {
     console.log(`自動採番ID : ${result.lastID}`);
     return get(db, "SELECT * FROM books WHERE id = ?", result.lastID);
@@ -26,7 +26,7 @@ run(
   db,
   "CREATE TABLE books(id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT UNIQUE)"
 )
-  .then(() => run(db, "INSERT INTO users(title) VALUES('テスト')"))
+  .then(() => run(db, "INSERT INTO users(title) VALUES(?)", "テスト"))
   .catch((err) => {
     console.error(err.message);
     return get(db, "SELECT * FROM users WHERE id = ?", 1);
