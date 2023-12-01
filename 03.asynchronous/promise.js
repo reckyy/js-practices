@@ -28,11 +28,19 @@ run(
 )
   .then(() => run(db, "INSERT INTO users(title) VALUES(?)", "テスト"))
   .catch((err) => {
-    console.error(err.message);
-    return get(db, "SELECT * FROM users WHERE id = ?", 1);
+    if(err.code === 'SQLITE_ERROR'){
+      console.error(err.message);
+      return get(db, "SELECT * FROM users WHERE id = ?", 1);
+    }else{
+      throw err;
+    }
   })
   .catch((err) => {
-    console.error(err.message);
-    return run(db, "DROP TABLE books");
+    if(err.code === 'SQLITE_ERROR'){
+      console.error(err.message);
+      return run(db, "DROP TABLE books");
+    }else{
+      throw err;
+    }
   })
   .then(() => db.close());

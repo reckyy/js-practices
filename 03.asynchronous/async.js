@@ -25,12 +25,20 @@ await run(
 try {
   await run(db, "INSERT INTO users(title) VALUES(?)", "テスト");
 } catch (err) {
-  console.error(err.message);
+  if(err.code === 'SQLITE_ERROR'){
+    console.error(err.message);
+  }else{
+    throw err;
+  }
 }
 try {
   await get(db, "SELECT * FROM users WHERE id = ?", 1);
 } catch (err) {
-  console.error(err.message);
+  if(err.code === 'SQLITE_ERROR'){
+    console.error(err.message);
+  }else{
+    throw err;
+  }
 } finally {
   await run(db, "DROP TABLE books");
   db.close();
