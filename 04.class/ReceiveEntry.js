@@ -13,9 +13,9 @@ export class ReceiveEntry{
     
     rl.on("close", async() => {
       const input = lines.join('\n');
-      await sql.run("create table if not exists memos (id integer primary key autoincrement, content text)");
+      await sql.run("CREATE TABLE IF NOT EXISTS memos (id integer primary key autoincrement, content text)");
       try {
-        await sql.run(`insert into memos(content) values('${input}')`);
+        await sql.run(`INSERT INTO memos(content) VALUES('${input}')`);
         console.log('your entry is saved!');
       } catch (err) {
         console.error(err);

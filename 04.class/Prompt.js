@@ -49,7 +49,7 @@ export class Prompt{
               },
             ]
             const answer = await enquirer.prompt(questions);
-            await sql.run(`delete from memos where id = ${answer.chosenMemoId}`);
+            await sql.run(`DELETE FROM memos WHERE id = ${answer.chosenMemoId}`);
             console.log('memo of your choice is deleted!');
             break;
           }

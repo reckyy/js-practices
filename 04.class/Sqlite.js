@@ -20,7 +20,7 @@ export class Sqlite{
 
   all(){
     return new Promise((resolve, reject) => {
-      this.db.all("select * from memos", (err, rows) => {
+      this.db.all("SELECT * FROM memos", (err, rows) => {
         if (err) {
           reject(err);
         } else {
