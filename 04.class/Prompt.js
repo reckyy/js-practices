@@ -1,25 +1,24 @@
 import enquirer from "enquirer";
 
-export class Prompt{
-  constructor(){
+export class Prompt {
+  constructor() {
     this.option = process.argv[2];
   }
 
-
-  pattern_by_prompt(sql){
+  pattern_by_prompt(sql) {
     (async () => {
       const memos = await sql.all();
-      const firstRowsOfMemos = memos.map(({id, content}) => ({
+      const firstRowsOfMemos = memos.map(({ id, content }) => ({
         id: id,
-        value: content.split('\n')[0],
+        value: content.split("\n")[0],
       }));
-      try{
-        switch(this.option){
-          case '-l': {
+      try {
+        switch (this.option) {
+          case "-l": {
             firstRowsOfMemos.forEach((row) => console.log(row.value));
             break;
           }
-          case '-r': {
+          case "-r": {
             const questions = [
               {
                 type: "select",
@@ -30,13 +29,15 @@ export class Prompt{
                   return this.focused.id;
                 },
               },
-            ]
+            ];
             const answer = await enquirer.prompt(questions);
-            const chosenMemo = memos.find((memo) => memo.id === answer.chosenMemoId);
+            const chosenMemo = memos.find(
+              (memo) => memo.id === answer.chosenMemoId
+            );
             console.log(chosenMemo.content);
-            break;  
+            break;
           }
-          case '-d': {
+          case "-d": {
             const questions = [
               {
                 type: "select",
@@ -47,16 +48,18 @@ export class Prompt{
                   return this.focused.id;
                 },
               },
-            ]
+            ];
             const answer = await enquirer.prompt(questions);
-            await sql.run(`DELETE FROM memos WHERE id = ${answer.chosenMemoId}`);
-            console.log('memo of your choice is deleted!');
+            await sql.run(
+              `DELETE FROM memos WHERE id = ${answer.chosenMemoId}`
+            );
+            console.log("memo of your choice is deleted!");
             break;
           }
         }
-      }catch(err){
+      } catch (err) {
         console.error(err);
-      }finally{
+      } finally {
         sql.close();
       }
     })();

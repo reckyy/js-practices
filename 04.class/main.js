@@ -5,8 +5,8 @@ import { Prompt } from "./Prompt.js";
 const sql = new Sqlite();
 const prompt = new Prompt();
 
-if(prompt.option){
+if (prompt.option) {
   prompt.pattern_by_prompt(sql);
-}else{
+} else {
   ReceiveEntry.saveInput(sql);
 }
