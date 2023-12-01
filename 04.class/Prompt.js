@@ -32,7 +32,8 @@ export class Prompt{
               },
             ]
             const answer = await enquirer.prompt(questions);
-            console.log(memos[answer.chosenMemoId - 1].content);
+            const chosenMemo = memos.find((memo) => memo.id === answer.chosenMemoId);
+            console.log(chosenMemo.content);
             break;  
           }
           case '-d': {
