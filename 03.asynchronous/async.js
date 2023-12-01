@@ -28,12 +28,12 @@ console.log("エラーあり");
   try {
     await run(db, "INSERT INTO users(title) VALUES('テスト')");
   } catch (err) {
-    console.error(err);
+    console.error(err.message);
   }
   try {
     await get(db, "SELECT * FROM users WHERE id = ?", 1);
   } catch (err) {
-    console.error(err);
+    console.error(err.message);
   } finally {
     await run(db, "DROP TABLE books");
     db.close();

@@ -25,7 +25,7 @@ db.run(
   () => {
     db.run("INSERT INTO users(title) VALUES(?)", "テスト", function (err) {
       if (err) {
-        console.error(err);
+        console.error(err.message);
       } else {
         console.log(`自動採番ID :${this.lastID}`);
       }
@@ -34,7 +34,7 @@ db.run(
         this ? this.lastID : 1,
         (err, row) => {
           if (err) {
-            console.error(err);
+            console.error(err.message);
           } else {
             console.log(`id:${row.id} タイトル:${row.title}`);
           }

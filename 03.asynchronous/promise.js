@@ -28,11 +28,11 @@ run(
 )
   .then(() => run(db, "INSERT INTO users(title) VALUES('テスト')"))
   .catch((err) => {
-    console.error(err);
+    console.error(err.message);
     return get(db, "SELECT * FROM users WHERE id = ?", 1);
   })
   .catch((err) => {
-    console.error(err);
+    console.error(err.message);
     run(db, "DROP TABLE books");
   })
   .then(() => db.close());
