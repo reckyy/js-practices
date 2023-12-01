@@ -29,20 +29,16 @@ db.run(
       } else {
         console.log(`自動採番ID :${this.lastID}`);
       }
-      db.get(
-        "SELECT * FROM users WHERE id = ?",
-        this?.lastID,
-        (err, row) => {
-          if (err) {
-            console.error(err.message);
-          } else {
-            console.log(`id:${row.id} タイトル:${row.title}`);
-          }
-          db.run("DROP TABLE books", () => {
-            db.close();
-          });
+      db.get("SELECT * FROM users WHERE id = ?", this?.lastID, (err, row) => {
+        if (err) {
+          console.error(err.message);
+        } else {
+          console.log(`id:${row.id} タイトル:${row.title}`);
         }
-      );
+        db.run("DROP TABLE books", () => {
+          db.close();
+        });
+      });
     });
   }
 );
