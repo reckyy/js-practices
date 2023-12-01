@@ -35,6 +35,23 @@ export class Prompt{
             console.log(memos[answer.chosenMemoId - 1].content);
             break;  
           }
+          case '-d': {
+            const questions = [
+              {
+                type: "select",
+                name: "chosenMemoId",
+                message: "Choose a note you want to delete:",
+                choices: firstRowsOfMemos,
+                result() {
+                  return this.focused.id;
+                },
+              },
+            ]
+            const answer = await enquirer.prompt(questions);
+            await sql.run(`delete from memos where id = ${answer.chosenMemoId}`);
+            console.log('memo of your choice is deleted!');
+            break;
+          }
         }
       }catch(err){
         console.error(err);
