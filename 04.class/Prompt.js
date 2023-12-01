@@ -19,6 +19,22 @@ export class Prompt{
             firstRowsOfMemos.forEach((row) => console.log(row.value));
             break;
           }
+          case '-r': {
+            const questions = [
+              {
+                type: "select",
+                name: "chosenMemoId",
+                message: "Choose a note you want to see:",
+                choices: firstRowsOfMemos,
+                result() {
+                  return this.focused.id;
+                },
+              },
+            ]
+            const answer = await enquirer.prompt(questions);
+            console.log(memos[answer.chosenMemoId - 1].content);
+            break;  
+          }
         }
       }catch(err){
         console.error(err);
