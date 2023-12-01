@@ -39,7 +39,6 @@ try {
   }else{
     throw err;
   }
-} finally {
-  await run(db, "DROP TABLE books");
-  db.close();
 }
+await run(db, "DROP TABLE books");
+db.close();
