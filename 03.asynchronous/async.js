@@ -25,7 +25,7 @@ await run(
 try {
   await run(db, "INSERT INTO users(title) VALUES(?)", "テスト");
 } catch (err) {
-  if ('code' in err && err.code === "SQLITE_ERROR") {
+  if ("code" in err && err.code === "SQLITE_ERROR") {
     console.error(err.message);
   } else {
     throw err;
@@ -34,7 +34,7 @@ try {
 try {
   await get(db, "SELECT * FROM users WHERE id = ?", 1);
 } catch (err) {
-  if ('code' in err && err.code === "SQLITE_ERROR") {
+  if ("code" in err && err.code === "SQLITE_ERROR") {
     console.error(err.message);
   } else {
     throw err;
