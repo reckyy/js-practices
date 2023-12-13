@@ -38,7 +38,7 @@ export class MemoStorage {
 
   all() {
     return new Promise((resolve, reject) => {
-      this.db.all("SELECT * FROM memos", (err, rows) => {
+      this.db.all("SELECT * FROM memos ORDER BY id", (err, rows) => {
         if (err) {
           reject(err);
         } else {
