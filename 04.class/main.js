@@ -1,12 +1,11 @@
-import { Sqlite } from "./Sqlite.js";
-import { ReceiveEntry } from "./ReceiveEntry.js";
-import { Prompt } from "./Prompt.js";
+import { MemoStorage } from "./MemoStorage.js";
+import { MemoApp } from "./MemoApp.js";
 
-const sql = new Sqlite();
-const prompt = new Prompt();
+const sql = new MemoStorage();
+const memoApp = new MemoApp();
 
-if (prompt.option) {
-  prompt.pattern_by_prompt(sql);
+if (memoApp.option) {
+  memoApp.run(sql);
 } else {
-  ReceiveEntry.saveInput(sql);
+  memoApp.saveInput(sql);
 }

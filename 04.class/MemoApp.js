@@ -1,11 +1,12 @@
 import enquirer from "enquirer";
+import readline from "readline";
 
-export class Prompt {
+export class MemoApp {
   constructor() {
     this.option = process.argv[2];
   }
 
-  pattern_by_prompt(sql) {
+  run(sql) {
     (async () => {
       const memos = await sql.all();
       const firstRowsOfMemos = memos.map(({ id, content }) => ({
@@ -50,9 +51,7 @@ export class Prompt {
               },
             ];
             const answer = await enquirer.prompt(questions);
-            await sql.run(
-              `DELETE FROM memos WHERE id = ${answer.chosenMemoId}`
-            );
+            await sql.delete(answer.chosenMemoId);
             console.log("memo of your choice is deleted!");
             break;
           }
@@ -63,5 +62,28 @@ export class Prompt {
         sql.close();
       }
     })();
+  }
+
+  saveInput(sql) {
+    const rl = readline.createInterface({
+      input: process.stdin,
+    });
+    const lines = [];
+    rl.on("line", (line) => {
+      lines.push(line);
+    });
+
+    rl.on("close", async () => {
+      const input = lines.join("\n");
+      await sql.createTable();
+      try {
+        await sql.add(input);
+        console.log("your entry is saved!");
+      } catch (err) {
+        console.error(err);
+      } finally {
+        sql.close();
+      }
+    });
   }
 }
