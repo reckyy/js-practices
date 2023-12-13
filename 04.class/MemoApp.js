@@ -7,7 +7,7 @@ export class MemoApp {
   }
 
   run(sql) {
-    if (this.option){
+    if (this.option) {
       (async () => {
         const memos = await sql.all();
         const firstRowsOfMemos = memos.map(({ id, content }) => ({
