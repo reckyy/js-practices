@@ -1,8 +1,8 @@
 import sqlite3 from "sqlite3";
 
 export class MemoStorage {
-  constructor() {
-    this.db = new sqlite3.Database("./memo.sqlite");
+  constructor(storageFile) {
+    this.db = new sqlite3.Database(storageFile);
   }
 
   createTable() {
