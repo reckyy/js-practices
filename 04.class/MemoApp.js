@@ -9,32 +9,32 @@ export class MemoApp {
   async run(sql) {
     if (this.option) {
       const [memos, firstRowsOfMemos] = await this.#takeMemoInfo(sql);
-        try {
-          switch (this.option) {
-            case "-l": {
-              this.#caseL(firstRowsOfMemos);
-              break;
-            }
-            case "-r": {
-              await this.#caseR(firstRowsOfMemos, memos);
-              break;
-            }
-            case "-d": {
-              await this.#caseD(firstRowsOfMemos, sql);
-              break;
-            }
+      try {
+        switch (this.option) {
+          case "-l": {
+            this.#caseL(firstRowsOfMemos);
+            break;
           }
-        } catch (err) {
-          console.error(err);
-        } finally {
-          sql.close();
+          case "-r": {
+            await this.#caseR(firstRowsOfMemos, memos);
+            break;
+          }
+          case "-d": {
+            await this.#caseD(firstRowsOfMemos, sql);
+            break;
+          }
         }
-    }else {
+      } catch (err) {
+        console.error(err);
+      } finally {
+        sql.close();
+      }
+    } else {
       this.#saveInput(sql);
     }
   }
 
-  async #takeMemoInfo(sql){
+  async #takeMemoInfo(sql) {
     const memos = await sql.all();
     const firstRowsOfMemos = memos.map(({ id, content }) => ({
       id: id,
@@ -43,11 +43,11 @@ export class MemoApp {
     return [memos, firstRowsOfMemos];
   }
 
-	#caseL(firstRowsOfMemos){
+  #caseL(firstRowsOfMemos) {
     firstRowsOfMemos.forEach((row) => console.log(row.value));
   }
 
-  async #caseR(firstRowsOfMemos, memos){
+  async #caseR(firstRowsOfMemos, memos) {
     const questions = [
       {
         type: "select",
@@ -60,13 +60,11 @@ export class MemoApp {
       },
     ];
     const answer = await enquirer.prompt(questions);
-    const chosenMemo = memos.find(
-      (memo) => memo.id === answer.chosenMemoId
-    );
+    const chosenMemo = memos.find((memo) => memo.id === answer.chosenMemoId);
     console.log(chosenMemo.content);
   }
 
-  async #caseD(firstRowsOfMemos, sql){
+  async #caseD(firstRowsOfMemos, sql) {
     const questions = [
       {
         type: "select",
@@ -83,7 +81,7 @@ export class MemoApp {
     console.log("memo of your choice is deleted!");
   }
 
-  #saveInput(sql){
+  #saveInput(sql) {
     const rl = readline.createInterface({
       input: process.stdin,
     });
