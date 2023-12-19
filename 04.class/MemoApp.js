@@ -12,15 +12,15 @@ export class MemoApp {
       try {
         switch (this.option) {
           case "-l": {
-            this.#caseL(firstRowsOfMemos);
+            this.#listMemos(firstRowsOfMemos);
             break;
           }
           case "-r": {
-            await this.#caseR(firstRowsOfMemos, memos);
+            await this.#showMemo(firstRowsOfMemos, memos);
             break;
           }
           case "-d": {
-            await this.#caseD(firstRowsOfMemos, sql);
+            await this.#deleteMemo(firstRowsOfMemos, sql);
             break;
           }
         }
@@ -43,11 +43,11 @@ export class MemoApp {
     return [memos, firstRowsOfMemos];
   }
 
-  #caseL(firstRowsOfMemos) {
+  #listMemos(firstRowsOfMemos) {
     firstRowsOfMemos.forEach((row) => console.log(row.value));
   }
 
-  async #caseR(firstRowsOfMemos, memos) {
+  async #showMemo(firstRowsOfMemos, memos) {
     const questions = [
       {
         type: "select",
@@ -64,7 +64,7 @@ export class MemoApp {
     console.log(chosenMemo.content);
   }
 
-  async #caseD(firstRowsOfMemos, sql) {
+  async #deleteMemo(firstRowsOfMemos, sql) {
     const questions = [
       {
         type: "select",
